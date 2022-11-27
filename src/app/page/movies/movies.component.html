@@ -14,28 +14,35 @@
 -->
 <div class="bg-white">
   <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Filmek</h2>
+    <div class="moviesHeader flex-1 flex justify-between">
+      <div class="btn-group">
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900 inline mr-3">Filmek</h2>
+        <a (click)="sort('nameAz')" class="inline-block pointer rounded-md border border-transparent bg-gray-300 mt-5 ml-5 mr-1 px-3 text-center font-small text-white hover:bg-gray-400">A-Z</a>
+        <a (click)="sort('nameZa')" class="inline-block pointer rounded-md border border-transparent bg-gray-300 mt-5 mr-1  px-3 text-center font-small text-white hover:bg-gray-400">Z-A</a>
+        <a (click)="sort('year19')" class="inline-block pointer rounded-md border border-transparent bg-gray-300 mt-5 mr-1  px-3 text-center font-small text-white hover:bg-gray-400">Legújabb</a>
+        <a (click)="sort('year91')" class="inline-block pointer rounded-md border border-transparent bg-gray-300 mt-5 mr-1  px-3 text-center font-small text-white hover:bg-gray-400">Legrégebbi</a>
+
+      </div>
+      <a [routerLink]="['/movies/edit/', 0]" class="inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700">Új adat felvétele</a>
+    </div>
 
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div class="group relative"  *ngFor="let movie of moviesList$ | async | slice: (currentPage*pageSize -10) : currentPage*pageSize" >
-        <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+      <div class="group relative"  *ngFor="let movie of moviesList$ | async | slice: ((currentPage-1)*pageSize) : currentPage*pageSize | sort:sortOrder " >
+        <div class="pointer min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
           <img [src]="movie.poster" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
         </div>
-        <div class="mt-4 flex justify-between">
+        <div  [routerLink]="['/movies/edit/', movie.id]" class="pointer mt-4 flex justify-between">
           <div>
             <h3 class="text-sm text-gray-700">
-              <a [routerLink]="['/movies/edit/', movie.id]">
-                <span aria-hidden="true" class="absolute inset-0"></span>
                 {{ movie.title }}
-              </a>
             </h3>
             <p class="mt-1 text-sm text-gray-500">{{ movie.director }}</p>
           </div>
           <p class="text-sm font-medium text-gray-900">{{ movie.releaseYear }}</p>
         </div>
         <div class="btn-group flex justify-end">
-          <i class="fa fa-edit fa-lg mr-4" aria-hidden="true"></i>
-          <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+          <i (click)="onEdit(movie)" [routerLink]="['/movies/edit/', movie.id]" class="pointer fa fa-edit fa-lg mr-4" aria-hidden="true"></i>
+          <i (click)="onDelete(movie)"  class=" pointer fa fa-trash fa-lg" aria-hidden="true"></i>
         </div>
       </div>
 
@@ -52,9 +59,9 @@
     <div>
       <p class="text-sm text-gray-700">
         Showing
-        <span class="font-medium">1</span>
+        <span class="font-medium">{{(pageSize * (currentPage-1))+1}}</span>
         to
-        <span class="font-medium">10</span>
+        <span class="font-medium">{{ pageSize * currentPage }}</span>
         of
         <span class="font-medium">{{ movieNumber }}</span>
         results

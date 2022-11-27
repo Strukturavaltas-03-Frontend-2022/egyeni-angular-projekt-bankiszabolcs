@@ -10,8 +10,10 @@ import { MovieEditorComponent } from './page/movie-editor/movie-editor.component
 import { ContactComponent } from './page/contact/contact.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
+import { SortPipe } from './pipe/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -21,14 +23,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MoviesComponent,
     MovieEditorComponent,
     ContactComponent,
-    AdminComponent
+    AdminComponent,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CommonModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

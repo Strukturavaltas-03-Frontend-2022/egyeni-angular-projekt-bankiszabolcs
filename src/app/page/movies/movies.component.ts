@@ -10,7 +10,7 @@ import { MovieHandlerService } from 'src/app/services/movie-handler.service';
 })
 export class MoviesComponent {
 
-  @Input() pageSize: number = 25
+  @Input() pageSize: number = 20
 
   moviesList$: Observable<Movie[]> = this.movieService.list$
 
@@ -19,6 +19,8 @@ export class MoviesComponent {
   currentPage: number = 1
 
   pageCount: number = 1
+
+  sortOrder: string = 'nameAZ'
 
   constructor(
     private movieService: MovieHandlerService
@@ -49,6 +51,20 @@ export class MoviesComponent {
   }else if(numb === 0){
     this.currentPage = this.pageCount
   }
-    console.log(this.currentPage);
 }
+
+onDelete(movie: Movie):void{
+  this.movieService.delete(movie)
+}
+
+onEdit(movie: Movie):void{
+  this.movieService.isEditid=true
+}
+
+sort(sort:string):void{
+  this.sortOrder = sort
+  console.log(this.sortOrder);
+
+}
+
 }

@@ -1,4 +1,68 @@
-<p>movie-editor works!</p>
-<pre>
-  {{actualMovie$ | async | json}}
-</pre>
+<div class="container">
+  <div  *ngIf="(actualMovie$ | async) as movie" class="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="header flex justify-around">
+      <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">{{ movie.title }}</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ movie.genre }}</p>
+      </div>
+      <div class="btn-group flex-1">
+        <a routerLink="/movies" class="button inline-block rounded-md border border-transparent bg-indigo-600 py-1 px-3 text-center font-medium text-white hover:bg-indigo-700"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+        <a (click)="editToggle(movie)" *ngIf="!isEditid; else save" class="button inline-block rounded-md border border-transparent bg-green-500 py-1 px-3 text-center font-medium text-white hover:bg-green-600">
+          <i class="fa fa-pencil-square" aria-hidden="true"></i>
+        </a>
+          <ng-template #save>
+            <a (click)="editToggle(movie)" class="button inline-block rounded-md border border-transparent bg-blue-500 py-1 px-3 text-center font-medium text-white hover:bg-blue-600">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          </a>
+          </ng-template>
+        <a (click)="onDelete(movie)" class="button inline-block rounded-md border border-transparent bg-red-600 py-1 px-3 text-center font-medium text-white hover:bg-red-700"><i class="fa fa-trash"></i></a>
+      </div>
+    </div>
+    <div class="border-t border-gray-200">
+      <form #userEditorForm="ngForm">
+        <div *ngIf="isEditid; else onlyRead" >
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+            <label for="director" class="text-sm font-medium text-gray-500">Rendezte:</label>
+            <input id="director" name="director" [(ngModel)]="movie.director" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+            <label for="year" class="text-sm font-medium text-gray-500">Gyártás éve:</label>
+            <input id="year" name="year" [(ngModel)]="movie.releaseYear" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+            <label for="studio" class="text-sm font-medium text-gray-500">Gyártó:</label>
+            <input id="studio" name="studio" [(ngModel)]="movie.studio" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+            <label for="active" class="text-sm font-medium text-gray-500">Raktáron:</label>
+            <input id="active" name="active" [(ngModel)]="movie.active" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+        </div>
+          <ng-template #onlyRead>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+              <label for="director" class="text-sm font-medium text-gray-500">Rendezte:</label>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.director }}</dd>
+            </div>
+            <div class="bg-white-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+              <label for="director" class="text-sm font-medium text-gray-500">Gyártás éve:</label>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.releaseYear }}</dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+              <label for="director" class="text-sm font-medium text-gray-500">Gyártó:</label>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.studio }}</dd>
+            </div>
+            <div class="bg-white-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+              <label for="director" class="text-sm font-medium text-gray-500">Raktáron:</label>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.active }}</dd>
+            </div>
+          </ng-template>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Borító:</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <img class="max-w-xs border-2 border-zinc-200" [src]="movie.poster" alt="">
+          </dd>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

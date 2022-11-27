@@ -14,6 +14,8 @@ export class MovieHandlerService {
 
   selectedMovie$: BehaviorSubject<Movie> = new BehaviorSubject<Movie>(new Movie())
 
+  isEditid: boolean = false
+
   constructor(
     private http: HttpClient
   ) {
@@ -40,6 +42,23 @@ export class MovieHandlerService {
         next: movie => this.selectedMovie$.next(movie)
       }
       )
+    }
+
+    update(movie: Movie):void{
+      this.http.patch<Movie>(`${this.apiUrl}/${movie.id}`, movie).subscribe({
+        next: movie => {
+          this.selectedMovie$.next(movie)
+          this.getAll()
+        }
+      })
+    }
+
+    delete(movie:Movie):void{
+      this.http.delete(`${this.apiUrl}/${movie.id}`).subscribe({
+        next: movies =>{
+          this.getAll()
+        }
+      })
     }
 
 }
