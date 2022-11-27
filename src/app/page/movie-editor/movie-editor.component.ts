@@ -31,7 +31,12 @@ export class MovieEditorComponent {
 
   editToggle(movie: Movie):void{
     if(this.isEditid){
-      this.movieService.update(movie)
+      if(movie.id===0){
+        this.movieService.create(movie)
+      }else{
+        this.movieService.update(movie)
+      }
+
       this.router.navigate(['/movies'])
     }
 

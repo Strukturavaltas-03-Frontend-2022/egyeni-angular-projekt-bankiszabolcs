@@ -29,9 +29,12 @@ export class MovieHandlerService {
     getAll():void{
       this.http.get<Movie[]>(this.apiUrl).subscribe({
         next: movies => {
+          console.log(movies);
           movies = movies.slice(0,100)
          sessionStorage.setItem('movieList', JSON.stringify(movies))
          this.list$.next(movies)
+
+
         }
         }
       )
@@ -61,7 +64,15 @@ export class MovieHandlerService {
 
     delete(movie:Movie):void{
       this.http.delete(`${this.apiUrl}/${movie.id}`).subscribe({
-        next: movies =>{
+        next: movie =>{
+          this.getAll()
+        }
+      })
+    }
+
+    create(movie: Movie):void{
+      this.http.post<Movie>(this.apiUrl, movie).subscribe({
+        next: movie =>{
           this.getAll()
         }
       })
