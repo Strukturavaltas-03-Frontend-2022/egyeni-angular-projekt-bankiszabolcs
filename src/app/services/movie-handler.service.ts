@@ -39,8 +39,14 @@ export class MovieHandlerService {
 
     get(id:number):void{
       this.http.get<Movie>(`${this.apiUrl}/${id}`).subscribe({
-        next: movie => this.selectedMovie$.next(movie)
-      }
+        next: movie => {
+          if(!movie){
+            this.selectedMovie$.next(new Movie())
+          }else{
+            this.selectedMovie$.next(movie)
+          }
+        }
+        }
       )
     }
 

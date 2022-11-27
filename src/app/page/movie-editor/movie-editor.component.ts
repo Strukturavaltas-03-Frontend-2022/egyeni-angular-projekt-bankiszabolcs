@@ -38,6 +38,9 @@ export class MovieEditorComponent {
     this.isEditid= !this.isEditid
   }
 
+    editOff():void{
+      this.movieService.isEditid = false
+    }
 
   onDelete(movie: Movie):void{
     this.movieService.delete(movie)

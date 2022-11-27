@@ -1,12 +1,21 @@
 <div class="container">
   <div  *ngIf="(actualMovie$ | async) as movie" class="overflow-hidden bg-white shadow sm:rounded-lg">
+    <form #userEditorForm="ngForm">
     <div class="header flex justify-around">
+      <div *ngIf="isEditid; else onlyReadHeader" >
       <div class="px-4 py-5 sm:px-6">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">{{ movie.title }}</h3>
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ movie.genre }}</p>
+        <input name="title" [(ngModel)]="movie.title" class="form-control text-lg font-medium leading-6 text-gray-900">
+        <input name="genre" [(ngModel)]="movie.genre" class="form-control mt-1 max-w-2xl text-sm text-gray-500">
       </div>
+      </div>
+      <ng-template #onlyReadHeader>
+        <div class="px-4 py-5 sm:px-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">{{ movie.title }}</h3>
+          <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ movie.genre }}</p>
+        </div>
+      </ng-template>
       <div class="btn-group flex-1">
-        <a routerLink="/movies" class="button inline-block rounded-md border border-transparent bg-indigo-600 py-1 px-3 text-center font-medium text-white hover:bg-indigo-700"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+        <a (click)="editOff()"routerLink="/movies" class="button inline-block rounded-md border border-transparent bg-indigo-600 py-1 px-3 text-center font-medium text-white hover:bg-indigo-700"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
         <a (click)="editToggle(movie)" *ngIf="!isEditid; else save" class="button inline-block rounded-md border border-transparent bg-green-500 py-1 px-3 text-center font-medium text-white hover:bg-green-600">
           <i class="fa fa-pencil-square" aria-hidden="true"></i>
         </a>
@@ -19,13 +28,12 @@
       </div>
     </div>
     <div class="border-t border-gray-200">
-      <form #userEditorForm="ngForm">
         <div *ngIf="isEditid; else onlyRead" >
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="director" class="text-sm font-medium text-gray-500">Rendezte:</label>
             <input id="director" name="director" [(ngModel)]="movie.director" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           </div>
-        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="year" class="text-sm font-medium text-gray-500">Gyártás éve:</label>
             <input id="year" name="year" [(ngModel)]="movie.releaseYear" class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           </div>
@@ -62,7 +70,7 @@
             <img class="max-w-xs border-2 border-zinc-200" [src]="movie.poster" alt="">
           </dd>
         </div>
-      </form>
     </div>
+  </form>
   </div>
 </div>

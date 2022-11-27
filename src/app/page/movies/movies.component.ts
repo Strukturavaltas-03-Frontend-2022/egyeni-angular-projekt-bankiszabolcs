@@ -63,8 +63,6 @@ onEdit(movie: Movie):void{
 
 sort(sort:string):void{
   this.sortOrder = sort
-  console.log(this.sortOrder);
-
 }
 
 }
