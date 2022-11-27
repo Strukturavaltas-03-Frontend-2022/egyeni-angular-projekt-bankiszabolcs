@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { SortPipe } from './pipe/sort.pipe';
+import { TrueOrFalsePipe } from './pipe/true-or-false.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SortPipe } from './pipe/sort.pipe';
     ContactComponent,
     AdminComponent,
     SortPipe,
+    TrueOrFalsePipe,
   ],
   imports: [
     BrowserModule,

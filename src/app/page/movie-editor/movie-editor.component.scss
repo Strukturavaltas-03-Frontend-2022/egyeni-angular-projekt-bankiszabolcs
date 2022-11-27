@@ -11,3 +11,14 @@
 .btn-group{
   margin: auto 1.5rem auto 0;
 }
+
+.error-message{
+  color: red;
+  font-style: italic;
+  margin-left: 1rem;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: rgb(147 197 253);
+}

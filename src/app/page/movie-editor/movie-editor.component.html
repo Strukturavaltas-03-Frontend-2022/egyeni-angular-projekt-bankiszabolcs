@@ -1,12 +1,21 @@
 <div class="container">
   <div *ngIf="(actualMovie$ | async) as movie" class="overflow-hidden bg-white shadow sm:rounded-lg">
-    <form #userEditorForm="ngForm">
+    <form #movieEditorForm="ngForm"  (ngSubmit)="editToggle(movie)" >
       <div class="header flex flex-1 justify-between">
         <div *ngIf="isEditid; else onlyReadHeader">
           <div class="px-4 py-5 sm:px-6">
             <input name="title" [(ngModel)]="movie.title"
+            required pattern="^[A-Ű][A-Űa-ű()*.,;: .]{3,40}$"
               class="form-control block text-lg font-medium leading-6 text-gray-900">
-            <input name="genre" [(ngModel)]="movie.genre" class="block form-control mt-1 max-w-2xl text-sm text-gray-500">
+            <input name="genre" [(ngModel)]="movie.genre"
+            required pattern="^[A-Ű][A-Űa-ű .]{5,25}$"
+            class="block form-control mt-1 max-w-2xl text-sm text-gray-500">
+          </div>
+          <div *ngIf="movieEditorForm.controls['title']?.invalid" class="error-message">
+            Címnek 5-40 karakter közöttinek kell lennie.
+          </div>
+          <div *ngIf="movieEditorForm.controls['genre']?.invalid" class="error-message">
+            Műfajnak 5-40 karakter közöttinek kell lennie.
           </div>
         </div>
         <ng-template #onlyReadHeader>
@@ -19,15 +28,17 @@
           <div (click)="editOff()" routerLink="/movies"
             class="button inline-block rounded-md border border-transparent bg-indigo-600 py-1 px-3 text-center font-medium text-white hover:bg-indigo-700"><i
               class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></div>
-          <button (click)="editToggle(movie)" *ngIf="!isEditid; else save"
+          <button type="submit" *ngIf="!isEditid; else save"
+          [disabled]="movieEditorForm.invalid"
             class="button inline-block rounded-md border border-transparent bg-green-500 py-1 px-3 text-center font-medium text-white hover:bg-green-600">
             <i class="fa fa-pencil-square" aria-hidden="true"></i>
           </button>
           <ng-template #save>
-            <div (click)="editToggle(movie)"
+            <button  type="submit" [disabled]="movieEditorForm.invalid"
               class="button inline-block rounded-md border border-transparent bg-blue-500 py-1 px-3 text-center font-medium text-white hover:bg-blue-600">
               <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </div>
+
+            </button>
           </ng-template>
           <div (click)="onDelete(movie)"
             class="button inline-block rounded-md border border-transparent bg-red-600 py-1 px-3 text-center font-medium text-white hover:bg-red-700"><i
@@ -39,17 +50,29 @@
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="director" class="text-sm font-medium text-gray-500">Rendezte:</label>
             <input id="director" name="director" [(ngModel)]="movie.director"
+            required pattern="^[A-Ű][A-Űa-ű .]{5,30}$"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
+          </div>
+          <div *ngIf="movieEditorForm.controls['director']?.invalid" class="error-message">
+            Rendezőnek 5-40 karakter közöttinek kell lennie.
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="year" class="text-sm font-medium text-gray-500">Gyártás éve:</label>
             <input id="year" name="year" [(ngModel)]="movie.releaseYear"
+           pattern="^(19|20)\d{2}$"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+          <div *ngIf="movieEditorForm.controls['year']?.invalid" class="error-message">
+            Gyártási évnek a következő formátumot kell követni: 1992
           </div>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="studio" class="text-sm font-medium text-gray-500">Gyártó:</label>
             <input id="studio" name="studio" [(ngModel)]="movie.studio"
+            required pattern="^[A-Ű][A-Űa-ű .]{2,20}$"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
+          </div>
+          <div *ngIf="movieEditorForm.controls['studio']?.invalid" class="error-message">
+            Gyártónak 3-20 karakter közöttinek kell lennie.
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="active" class="text-sm font-medium text-gray-500">Raktáron:</label>
@@ -72,7 +95,7 @@
           </div>
           <div class="bg-white-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="director" class="text-sm font-medium text-gray-500">Raktáron:</label>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.active }}</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.active | trueOrFalse }}</dd>
           </div>
         </ng-template>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
