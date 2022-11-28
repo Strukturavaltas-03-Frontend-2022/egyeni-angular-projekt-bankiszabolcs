@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { SortPipe } from './pipe/sort.pipe';
 import { TrueOrFalsePipe } from './pipe/true-or-false.pipe';
 import { SearchPipe } from './pipe/search.pipe';
+import { MovieCardComponent } from './page/movie-card/movie-card.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SearchPipe } from './pipe/search.pipe';
     SortPipe,
     TrueOrFalsePipe,
     SearchPipe,
+    MovieCardComponent,
   ],
   imports: [
     BrowserModule,
