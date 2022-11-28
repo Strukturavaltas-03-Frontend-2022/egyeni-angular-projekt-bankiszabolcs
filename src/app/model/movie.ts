@@ -3,7 +3,7 @@ export class Movie {
   title: string = '';
   genre: string = '';
   director: string =  '';
-  releaseYear: number = 1990;
+  releaseYear: number = 0;
   poster: string = '';
   studio: string = '';
   active: boolean = true;

@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Movie } from 'src/app/model/movie';
+import { ConfigService } from 'src/app/services/config.service';
 import { MovieHandlerService } from 'src/app/services/movie-handler.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class MovieEditorComponent {
   actualMovie$: Observable<Movie> = this.movieService.selectedMovie$
 
   isEditid: boolean = this.movieService.isEditid
+
 
   constructor(){  }
 

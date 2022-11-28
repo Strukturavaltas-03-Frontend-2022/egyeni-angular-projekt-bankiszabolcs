@@ -6,15 +6,27 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SortPipe<T extends { [key:string]: any }> implements PipeTransform {
 
 
-  transform(value: T[], sortMode:string): T[] {
+  transform(value: T[], start:number, end:number, sortMode:string): T[] {
     if (!Array.isArray(value) || !sortMode) {
-      return value;
+      return value
     }
-    if(sortMode === 'nameAz') return value.sort((a, b) => a['title'].localeCompare(b['title']));
-    if(sortMode === 'nameZa') return value.sort((a, b) => b['title'].localeCompare(a['title']));
-    if(sortMode === 'year19')  return value.sort((a, b) => a['releaseYear'] - b['releaseYear']);
-    if(sortMode === 'year91') return value.sort((a, b) => b['releaseYear'] - a['releaseYear']);
+    if(sortMode === 'nameAz'){
+      value = value.sort((a, b) => a['title'].localeCompare(b['title'])).slice(start,end)
+      return value
+    }
+    if(sortMode === 'nameZa'){
+      value = value.sort((a, b) => b['title'].localeCompare(a['title'])).slice(start,end)
+      return value
+    }
+    if(sortMode === 'year19'){
+     value = value.sort((a, b) => a['releaseYear'] - b['releaseYear']).slice(start,end)
+      return value
+    }
+    if(sortMode === 'year91'){
+      value = value.sort((a, b) => b['releaseYear'] - a['releaseYear']).slice(start,end)
+      return value
+    }
 
-    return value;
+    return value
   }
 }

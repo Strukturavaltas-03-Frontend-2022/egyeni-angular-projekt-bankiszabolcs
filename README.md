@@ -1,27 +1,34 @@
 # OverTheMoviezon
 
+This site is about movies. All you need is to type `npm start` into the console.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
 
-## Development server
+Templates I used during the development created by Tailwind UI.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Data come from the 'https://nettuts.hu/jms/bankiszabolcs/cinema'. To make the website faster (considering this is a sample project) 
+I left only 100 elements from the data incoming. 
 
-## Code scaffolding
+## Documentation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Home Page
+  Navigation:
+    -Főoldal: Whenever you click here, it directs you to the main page.
+    -Filmek: It navigates you to the movies page.
+    -Admin: Non-existing. An area of the project to be developed.
+    -Kapcoslat: Non-existing. An area of the project to be developed.   
 
-## Build
+  Main body:
+    -Pictures: These pictures appear randomly from the databases.
+    -Button: Navigate you to the movies page.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Movies Page
+  Navigation: 
+    - No change
+  
+  Main body:
+    - Sort buttons: Sort the movies according to their title and release year.
+    - Input: You can search in the database. (Searching gives you back the movie(s) where the title matches your search phrase)
+    - Button: You can add new movie.
+    - Movie-Card: You can edit/delete them. If you click them you can check on further information about the movie selected. 
+    - Pagination: 20 movies can be found in one page. With the help of the arrows and the numbers you can change the page to get other 20 movie. If you get to the last 20 movie and click right arrow, you get to the first '20' movie page. 

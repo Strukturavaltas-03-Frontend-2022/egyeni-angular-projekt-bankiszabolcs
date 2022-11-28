@@ -5,17 +5,19 @@
         <div *ngIf="isEditid; else onlyReadHeader">
           <div class="px-4 py-5 sm:px-6">
             <input name="title" [(ngModel)]="movie.title"
-            required pattern="^[A-Ű][A-Űa-ű()*.,;: .]{3,40}$"
+            placeholder="Film címe"
+            required pattern="^[A-Ű][A-Űa-ű()*.,;: .]{3,60}$"
               class="form-control block text-lg font-medium leading-6 text-gray-900">
             <input name="genre" [(ngModel)]="movie.genre"
-            required pattern="^[A-Ű][A-Űa-ű .]{5,25}$"
-            class="block form-control mt-1 max-w-2xl text-sm text-gray-500">
+            required
+            placeholder="Film műfaja"
+            class="form-control block text-lg font-medium leading-6 text-gray-900">
           </div>
-          <div *ngIf="movieEditorForm.controls['title']?.invalid" class="error-message">
-            Címnek 5-40 karakter közöttinek kell lennie.
+          <div *ngIf="movieEditorForm.controls['title']?.invalid && !movieEditorForm.controls['title']?.pristine  " class="error-message">
+            Címet kötelező megadni!
           </div>
-          <div *ngIf="movieEditorForm.controls['genre']?.invalid" class="error-message">
-            Műfajnak 5-40 karakter közöttinek kell lennie.
+          <div *ngIf="movieEditorForm.controls['genre']?.invalid && !movieEditorForm.controls['genre']?.pristine " class="error-message">
+            Műfajt kötelező megadni!
           </div>
         </div>
         <ng-template #onlyReadHeader>
@@ -51,33 +53,47 @@
             <label for="director" class="text-sm font-medium text-gray-500">Rendezte:</label>
             <input id="director" name="director" [(ngModel)]="movie.director"
             required pattern="^[A-Ű][A-Űa-ű .]{5,30}$"
+            placeholder="Film rendezője"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
           </div>
-          <div *ngIf="movieEditorForm.controls['director']?.invalid" class="error-message">
+          <div *ngIf="movieEditorForm.controls['director']?.invalid && !movieEditorForm.controls['director']?.pristine" class="error-message">
             Rendezőnek 5-40 karakter közöttinek kell lennie.
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="year" class="text-sm font-medium text-gray-500">Gyártás éve:</label>
             <input id="year" name="year" [(ngModel)]="movie.releaseYear"
-           pattern="^(19|20)\d{2}$"
+           pattern="^(19|20)\d{2}$" placeholder="Film gyártási éve"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           </div>
-          <div *ngIf="movieEditorForm.controls['year']?.invalid" class="error-message">
+          <div *ngIf="movieEditorForm.controls['year']?.invalid && !movieEditorForm.controls['year']?.pristine" class="error-message">
             Gyártási évnek a következő formátumot kell követni: 1992
           </div>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="studio" class="text-sm font-medium text-gray-500">Gyártó:</label>
             <input id="studio" name="studio" [(ngModel)]="movie.studio"
-            required pattern="^[A-Ű][A-Űa-ű .]{2,20}$"
+            required pattern="^[A-Ű0-9][0-9A-Űa-ű .]{2,30}$" placeholder="Film gyártója"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
           </div>
-          <div *ngIf="movieEditorForm.controls['studio']?.invalid" class="error-message">
+          <div *ngIf="movieEditorForm.controls['studio']?.invalid && !movieEditorForm.controls['studio']?.pristine" class="error-message">
             Gyártónak 3-20 karakter közöttinek kell lennie.
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="active" class="text-sm font-medium text-gray-500">Raktáron:</label>
             <input id="active" name="active" [(ngModel)]="movie.active"
+            placeholder="Van-e raktáron: true / false"
               class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          </div>
+          <div *ngIf="movieEditorForm.controls['active']?.invalid && !movieEditorForm.controls['active']?.pristine" class="error-message">
+            Kötelező megadni.
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
+            <label for="studio" class="text-sm font-medium text-gray-500">Borító</label>
+            <input id="poster" name="poster" [(ngModel)]="movie.poster"
+            required placeholder="Borító linkje"
+              class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
+          </div>
+          <div *ngIf="movieEditorForm.controls['poster']?.invalid && !movieEditorForm.controls['poster']?.pristine" class="error-message">
+            Borító linket meg kell adni!
           </div>
         </div>
         <ng-template #onlyRead>
@@ -97,13 +113,13 @@
             <label for="director" class="text-sm font-medium text-gray-500">Raktáron:</label>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{ movie.active | trueOrFalse }}</dd>
           </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Borító:</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <img class="max-w-xs border-2 border-zinc-200" [src]="movie.poster" alt="">
+            </dd>
+          </div>
         </ng-template>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Borító:</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-            <img class="max-w-xs border-2 border-zinc-200" [src]="movie.poster" alt="">
-          </dd>
-        </div>
       </div>
     </form>
   </div>

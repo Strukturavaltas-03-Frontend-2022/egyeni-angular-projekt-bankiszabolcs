@@ -22,3 +22,10 @@ button:disabled,
 button[disabled]{
   background-color: rgb(147 197 253);
 }
+
+input{
+  border-radius: 3px;
+  border-bottom: 2px solid rgba(147, 196, 253, 0.276);
+  height: 2rem;
+  padding: 3px;
+}

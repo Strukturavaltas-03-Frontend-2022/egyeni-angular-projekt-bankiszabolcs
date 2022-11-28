@@ -22,6 +22,8 @@ export class MoviesComponent {
 
   sortOrder: string = 'nameAZ'
 
+  searchPhrase: string = ''
+
   constructor(
     private movieService: MovieHandlerService
   ){}
@@ -57,7 +59,7 @@ onDelete(movie: Movie):void{
   this.movieService.delete(movie)
 }
 
-onEdit(movie: Movie):void{
+onEdit(movie: Movie=new Movie()):void{
   this.movieService.isEditid=true
 }
 
