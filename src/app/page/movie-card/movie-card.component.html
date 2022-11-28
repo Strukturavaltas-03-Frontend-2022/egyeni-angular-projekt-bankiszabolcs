@@ -1,1 +1,16 @@
-<p>movie-card works!</p>
+<div [routerLink]="['/movies/edit/', movie.id]" class="pointer min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+  <img [src]="movie.poster" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+</div>
+<div  [routerLink]="['/movies/edit/', movie.id]" class="pointer mt-4 flex justify-between">
+  <div>
+    <h3 class="text-sm text-gray-700">
+        {{ movie.title }}
+    </h3>
+    <p class="mt-1 text-sm text-gray-500">{{ movie.director }}</p>
+  </div>
+  <p class="text-sm font-medium text-gray-900">{{ movie.releaseYear }}</p>
+</div>
+<div class="btn-group flex justify-end">
+  <i (click)="onEdit()" class="pointer fa fa-edit fa-lg mr-4" aria-hidden="true"></i>
+  <i (click)="onDelete(movie)"  class=" pointer fa fa-trash fa-lg" aria-hidden="true"></i>
+</div>

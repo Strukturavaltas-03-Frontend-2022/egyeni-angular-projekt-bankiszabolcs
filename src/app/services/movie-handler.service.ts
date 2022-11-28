@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Movie } from '../model/movie';
-import { BehaviorSubject, Observable, tap } from 'rxjs'
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,10 @@ export class MovieHandlerService {
       this.getAll()
     }
    }
+
+    editToggle():void{
+      this.isEditid=!this.isEditid
+    }
 
     getAll():void{
       this.http.get<Movie[]>(this.apiUrl).subscribe({

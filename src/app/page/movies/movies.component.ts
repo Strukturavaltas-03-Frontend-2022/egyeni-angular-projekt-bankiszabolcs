@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { Observable} from 'rxjs';
 import { Movie } from 'src/app/model/movie';
 import { MovieHandlerService } from 'src/app/services/movie-handler.service';
@@ -20,12 +21,19 @@ export class MoviesComponent {
 
   pageCount: number = 1
 
-  sortOrder: string = 'nameAZ'
+  sortOrder: string = 'nameAz'
 
   searchPhrase: string = ''
 
+  isEditid: boolean = this.movieService.isEditid
+
+  start:number= (this.currentPage-1)*this.pageSize
+
+  end: number =  this.currentPage*this.pageSize
+
   constructor(
-    private movieService: MovieHandlerService
+    private movieService: MovieHandlerService,
+    private router: Router
   ){}
 
   getPageNumbers(): number[]{
@@ -59,8 +67,10 @@ onDelete(movie: Movie):void{
   this.movieService.delete(movie)
 }
 
-onEdit(movie: Movie=new Movie()):void{
+onEdit(movie: Movie = new Movie()):void{
   this.movieService.isEditid=true
+  this.router.navigate(['/movies/edit/', movie.id])
+
 }
 
 sort(sort:string):void{

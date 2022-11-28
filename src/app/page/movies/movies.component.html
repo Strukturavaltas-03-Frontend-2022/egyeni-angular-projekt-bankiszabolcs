@@ -11,27 +11,12 @@
         </div>
       </div>
       <div class="mt-5 sm: mb-4 md: mb-4"> <input [(ngModel)]="searchPhrase" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search something"></div>
-      <a [routerLink]="['/movies/edit/', 0]" (click)="onEdit()" class="inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700">Új adat felvétele</a>
+      <a (click)="onEdit()" class="pointer inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700">Új adat felvétele</a>
     </div>
 
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div class="group relative"  *ngFor="let movie of moviesList$ | async  | sort:((currentPage-1)*pageSize) : (currentPage*pageSize) : sortOrder | search: searchPhrase : 'title' " >
-        <div [routerLink]="['/movies/edit/', movie.id]" class="pointer min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
-          <img [src]="movie.poster" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-        </div>
-        <div  [routerLink]="['/movies/edit/', movie.id]" class="pointer mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
-                {{ movie.title }}
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">{{ movie.director }}</p>
-          </div>
-          <p class="text-sm font-medium text-gray-900">{{ movie.releaseYear }}</p>
-        </div>
-        <div class="btn-group flex justify-end">
-          <i (click)="onEdit(movie)" [routerLink]="['/movies/edit/', movie.id]" class="pointer fa fa-edit fa-lg mr-4" aria-hidden="true"></i>
-          <i (click)="onDelete(movie)"  class=" pointer fa fa-trash fa-lg" aria-hidden="true"></i>
-        </div>
+      <div class="group relative"  *ngFor="let movie of moviesList$ | async  | sort: start : end : sortOrder | search: searchPhrase : 'title' " >
+        <app-movie-card [movie]="movie" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-movie-card>
       </div>
 
     </div>
