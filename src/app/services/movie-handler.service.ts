@@ -34,7 +34,7 @@ export class MovieHandlerService {
       this.http.get<Movie[]>(this.apiUrl).subscribe({
         next: movies => {
           console.log(movies);
-          movies = movies.slice(0,100)
+          movies = movies.slice(-100)
          sessionStorage.setItem('movieList', JSON.stringify(movies))
          this.list$.next(movies)
 

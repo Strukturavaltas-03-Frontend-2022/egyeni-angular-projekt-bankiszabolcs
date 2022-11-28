@@ -27,14 +27,18 @@ export class MoviesComponent {
 
   isEditid: boolean = this.movieService.isEditid
 
-  start:number= (this.currentPage-1)*this.pageSize
-
-  end: number =  this.currentPage*this.pageSize
-
   constructor(
     private movieService: MovieHandlerService,
     private router: Router
   ){}
+
+    getStart():number{
+     return (this.currentPage-1)*this.pageSize
+    }
+
+    getEnd():number{
+      return this.currentPage*this.pageSize
+    }
 
   getPageNumbers(): number[]{
     this.moviesList$.subscribe(movies=>{

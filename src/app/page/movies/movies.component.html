@@ -15,7 +15,7 @@
     </div>
 
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div class="group relative"  *ngFor="let movie of moviesList$ | async  | sort: start : end : sortOrder | search: searchPhrase : 'title' " >
+      <div class="group relative"  *ngFor="let movie of moviesList$ | async  | sort: getStart() : getEnd() : sortOrder | search: searchPhrase : 'title' " >
         <app-movie-card [movie]="movie" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-movie-card>
       </div>
 
