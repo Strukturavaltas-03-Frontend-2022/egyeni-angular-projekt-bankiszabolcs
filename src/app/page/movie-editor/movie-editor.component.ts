@@ -39,7 +39,7 @@ export class MovieEditorComponent {
         this.movieService.update(movie)
       }
 
-      this.router.navigate(['/movies'])
+     // this.router.navigate(['/movies'])
     }
 
     this.isEditid= !this.isEditid

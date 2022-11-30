@@ -79,21 +79,11 @@
           </div>
           <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
             <label for="active" class="text-sm font-medium text-gray-500">Raktáron:</label>
-            <input id="active" name="active" [(ngModel)]="movie.active"
-            placeholder="Van-e raktáron: true / false"
-              class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          </div>
-          <div *ngIf="movieEditorForm.controls['active']?.invalid && !movieEditorForm.controls['active']?.pristine" class="error-message">
-            Kötelező megadni.
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 form-group">
-            <label for="studio" class="text-sm font-medium text-gray-500">Borító</label>
-            <input id="poster" name="poster" [(ngModel)]="movie.poster"
-            required placeholder="Borító linkje"
-              class="form-control mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-50 ">
-          </div>
-          <div *ngIf="movieEditorForm.controls['poster']?.invalid && !movieEditorForm.controls['poster']?.pristine" class="error-message">
-            Borító linket meg kell adni!
+            <div class="form-check flex items-center ">
+              <input class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+                type="checkbox" value="" id="active" name="active" [checked]="movie.active"
+                [(ngModel)]="movie.active">
+            </div>
           </div>
         </div>
         <ng-template #onlyRead>
